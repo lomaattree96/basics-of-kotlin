@@ -30,24 +30,54 @@ fun main(args: Array<String>) {
 }
 
 //exp2: delegation : values
+
+interface delegation
+{
+    val value: String
+    fun mymessage()
+}
+
+class delegationimplementation(val y: String) : delegation
+{
+    override val value = "delegationimplementation y = $y"
+    override fun mymessage()
+    {
+        println(value)
+    }
+}
+
+class Newfeatures(a: delegation) : delegation by a
+{
+    override val value = "GeeksforGeeks"
+}
+
+fun main()
+{
+    val b = delegationimplementation("Hello!GFG")
+    val derived = Newfeatures(b)
+
+    derived.mymessage()
+    println(derived.value)
+}
+
 interface test {
     val value: String
     fun modes()
 }
 
-class dell(val g: String) : dell {
+class dell(val g: String) : test {
     override val value = "hey!!= $g"
-    override fun mode() {
+    override fun modes() {
         println(value)
     }
 }
-class delleg(f:dell) :dell by f{
+class delleg(f:test) :test by f{
     override val value = "and good sleep"
 }
 fun main(){
-    val la = delleg("have a nice day ahead")
+    val la = dell("have a nice day ahead")
     val lm = delleg(la)
-    lm.mode()
+    lm.modes()
     println(lm.value)
 
     //output : hey!! have a nice day and good sleep
